@@ -1,9 +1,8 @@
-title: Jeremy Mumford # your name (or website title) here
-logo: "/images/logo.png?raw=true" # your photo (or logo) here
+title: Jeremy Mumford
+logo: "/images/logo.png?raw=true" 
 bio: AI Software Engineer | Optimist | Outdoor Enthusiast
-description: > # your text below (remove <br> elements if you don't need line breaks)
-  Jeremy, a seasoned programmer, excels at blending software and data engineering with AI to tackle complex problems. Passionate about harnessing AI's evolving capabilities, he develops solutions that smartly integrate data and software. His programming journey began in high school, leading to a computer science degree with a data science focus, complemented by minors in statistics and business. Even before graduating, Jeremy honed his skills in startups, crafting vital business software. At Pattern, he's a pivotal member of the AI team, leveraging generative AI to significantly boost company productivity and output.
+description: Jeremy is an experienced programmer specializing in software and data engineering with a focus on AI. His expertise lies in creating integrated data and software solutions. He began programming in high school and holds a degree in Computer Science with a concentration in Data Science, and minors in Statistics and Business. Jeremy has developed his skills in startups, creating essential business software. Currently, at Pattern, he is a key contributor to the AI team, utilizing generative AI to enhance company productivity and output significantly.
 remote_theme: pages-themes/minimal@v0.2.0
 plugins:
 - jekyll-remote-theme
-google_analytics: G-5HX2090PDD # your Google Analytics tracking ID here
+google_analytics: G-5HX2090PDD 
