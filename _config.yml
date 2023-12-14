@@ -3,9 +3,6 @@ logo: "/images/logo.png?raw=true" # your photo (or logo) here
 bio: AI Software Engineer | Optimist | Outdoor Enthusiast
 description: > # your text below (remove <br> elements if you don't need line breaks)
   Jeremy, a seasoned programmer, excels at blending software and data engineering with AI to tackle complex problems. Passionate about harnessing AI's evolving capabilities, he develops solutions that smartly integrate data and software. His programming journey began in high school, leading to a computer science degree with a data science focus, complemented by minors in statistics and business. Even before graduating, Jeremy honed his skills in startups, crafting vital business software. At Pattern, he's a pivotal member of the AI team, leveraging generative AI to significantly boost company productivity and output.
-  <br><br>
-  <a href="https://www.linkedin.com/in/17jmumford/">View My LinkedIn Profile</a> 
-  
 remote_theme: pages-themes/minimal@v0.2.0
 plugins:
 - jekyll-remote-theme
