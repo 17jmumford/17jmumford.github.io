@@ -1,21 +1,24 @@
 ---
 layout: default
 ---
+
 ## Portfolio
 
 ---
 
 ### Projects
 
-[Honors Thesis on Deepfakes](/sample_page)
-<img src="images/dummy_thumbnail.jpg?raw=true"/>
+[AI Tinkerers Presentation](/pdf/Retrieval%20Augmented%20Generative%20AI.pdf)
+<img src="images/rag_presentation.png?raw=true"/>
 
 ---
+
 [Canyoneering App](/pdf/sample_presentation.pdf)
 <img src="images/dummy_thumbnail.jpg?raw=true"/>
 
 ---
-[AI Tinkerers Presentation](http://example.com/)
+
+[Honors Thesis on Deepfakes](/sample_page)
 <img src="images/dummy_thumbnail.jpg?raw=true"/>
 
 ---
@@ -30,8 +33,6 @@ layout: default
 
 ---
 
-
-
-
 ---
+
 <!-- Remove above link if you don't want to attibute -->
