@@ -2,7 +2,7 @@
 layout: default
 ---
 
-## Portfolio
+## -> [Chat with an AI about Jeremy!](/chatbot) <-
 
 ---
 
