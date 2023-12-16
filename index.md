@@ -13,26 +13,20 @@ layout: default
 
 ---
 
-[Canyoneering App](/pdf/sample_presentation.pdf)
-<img src="images/dummy_thumbnail.jpg?raw=true"/>
+[Data engineering for Canyoneering App](https://github.com/bricepollock/canyoneer)
+<img src="images/canyoneer.png?raw=true">
 
 ---
 
-[Honors Thesis on Deepfakes](/sample_page)
-<img src="images/dummy_thumbnail.jpg?raw=true"/>
-
+Honors Thesis on Deepfakes (coming soon...)
+<img src="images/deepfakes.jpeg?raw=true">
 ---
 
-### Important Links
+### Useful docs
 
-- [Resume](http://example.com/)
-- [Project 2 Title](http://example.com/)
-- [Project 3 Title](http://example.com/)
-- [Project 4 Title](http://example.com/)
-- [Project 5 Title](http://example.com/)
+- [Resume](/pdf/Jeremy%20Mumford%20Resume%202023%20Oct%20copy.pdf)
 
 ---
 
 ---
 
-<!-- Remove above link if you don't want to attibute -->
