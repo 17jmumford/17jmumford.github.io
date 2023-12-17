@@ -1,20 +1,54 @@
-#chatbot {
-    border: 1px solid #ccc;
-    padding: 10px;
-    width: 300px;
+/* Style for the input and button container */
+#input-container {
+    display: flex; /* Use flexbox to layout children in a row */
+    border-radius: 10px;
 }
 
-#chat-messages {
-    height: 150px;
-    overflow-y: scroll;
-    margin-bottom: 10px;
-}
-
+/* Styles for the input field */
 #chat-input {
-    width: calc(100% - 60px);
+    flex-grow: 1; /* Input takes up remaining space */
     padding: 5px;
+    border: 1px solid #ddd;
+    padding: 10px;
+    border-radius: 15px 0 0 15px;
+    margin-right: -1px; /* Align border with button */
 }
 
+/* Styles for the send button */
 #send-message {
-    width: 50px;
+    padding: 5px 10px;
+    background-color: #007bff;
+    color: white;
+    border: 1px solid #007bff;
+    padding: 10px;
+    border-radius: 0 15px 15px 0; /* Rounded right corners */
+    cursor: pointer;
+    line-height: 0;
+}
+
+#send-message:hover {
+    background-color: #0056b3;
+}
+
+#loading {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.dot {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: #000000;
+    margin: 0 3px;
+    animation: pulse 1.4s infinite ease-in-out both;
+}
+
+.dot:nth-child(1) { animation-delay: -0.32s; }
+.dot:nth-child(2) { animation-delay: -0.16s; }
+
+@keyframes pulse {
+    0%, 80%, 100% { transform: scale(0); }
+    40% { transform: scale(1.0); }
 }

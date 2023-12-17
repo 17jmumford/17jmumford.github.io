@@ -1,14 +1,21 @@
 ---
 layout: default
 ---
+<link rel="stylesheet" href="{{ 'styles/chatbot.css' | relative_url }}">
 <body>
-    <h2>Chatbot for learning about Jeremy</h2>
+    <h2>Jeremy's Personal Chatbot</h2>
     <div id="chatbot">
         <div id="chat-messages"></div>
-        <input type="text" id="chat-input" placeholder="Ask me something...">
-        <button id="send-message">Send</button>
+        <div id="loading" style="display: none;">
+            <span class="dot"></span>
+            <span class="dot"></span>
+            <span class="dot"></span>
+        </div>
+        <div id="input-container">
+            <input type="text" id="chat-input" placeholder="Ask me about Jeremy...">
+            <button id="send-message">↑</button>
+        </div>
     </div>
 </body>
 
 <script src="{{ '/assets/js/chatbot.js' | relative_url }}"></script>
-
