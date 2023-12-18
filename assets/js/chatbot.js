@@ -24,6 +24,7 @@ function sendMessage(message) {
         }
         if (this.readyState == 4 && this.status == 200) {
             displayMessage('Bot: ' + this.responseText);
+            messageHistory.push(this.responseText);
         }
         else if (this.readyState == 4 && this.status != 200) {
             displayMessage('Bot: ' + 'Sorry, I\'m having trouble communicating with the server. Please try again later.');
