@@ -23,13 +23,11 @@ function sendMessage(message) {
             showLoading(false); // Hide loading icon on response or error
         }
         if (this.readyState == 4 && this.status == 200) {
-            displayMessage('Bot: ' + this.responseText);
+            displayMessage(this.responseText, 'bot');
             messageHistory.push(this.responseText);
         }
         else if (this.readyState == 4 && this.status != 200) {
-            displayMessage('Bot: ' + 'Sorry, I\'m having trouble communicating with the server. Please try again later.');
-            displayMessage('Bot: ' + 'Error code: ' + this.status);
-            displayMessage('Bot: ' + 'Error message: ' + this.statusText);
+            displayMessage('Sorry, I\'m having trouble communicating with the server. Please try again later.', 'bot');
         }
     };
 
@@ -37,12 +35,17 @@ function sendMessage(message) {
     xhr.setRequestHeader("Content-Type", "application/json");
     xhr.send(JSON.stringify({ messages: messageHistory }));
 
-    displayMessage('You: ' + message);
+    displayMessage(message, 'user');
 }
 
-function displayMessage(message) {
+function displayMessage(message, type) {
     var chatMessages = document.getElementById('chat-messages');
-    chatMessages.innerHTML += '<div>' + message + '</div>';
+    if (type == 'bot') {
+        chatMessages.innerHTML += '<div class="bot-message"><span class="icon bot-icon"></span>' + message + '</div>';
+    }
+    else {
+        chatMessages.innerHTML += '<div class="user-message"><span class="icon user-icon"></span>' + message + '</div>';
+    }
     document.getElementById('chat-input').value = ''; // Clear input field
 }
 

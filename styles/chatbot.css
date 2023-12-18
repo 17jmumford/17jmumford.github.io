@@ -52,3 +52,35 @@
     0%, 80%, 100% { transform: scale(0); }
     40% { transform: scale(1.0); }
 }
+
+.bot-message,
+.user-message {
+    display: flex;
+    align-items: top;
+    margin-bottom: 10px;
+}
+
+.icon {
+    display: inline-block;
+    width: 24px;
+    /* Adjust the size as needed */
+    height: 24px;
+    /* Adjust the size as needed */
+    margin-right: 10px;
+}
+
+.bot-icon::before {
+    content: '🤖';
+    /* Insert your bot icon here */
+    /* If using an image: */
+    /* background-image: url('path-to-bot-icon.png'); */
+    /* background-size: cover; */
+}
+
+.user-icon::before {
+    content: '👤';
+    /* Insert your user icon here */
+    /* If using an image: */
+    /* background-image: url('path-to-user-icon.png'); */
+    /* background-size: cover; */
+}
