@@ -2,11 +2,13 @@
 layout: default
 ---
 
-## -> [Chat with an AI about Jeremy!](/chatbot) <-
+## Projects
 
 ---
 
-### Projects
+### -> [Chat with an AI about Jeremy!](/chatbot) <-
+
+---
 
 [AI Tinkerers Presentation](/pdf/Retrieval%20Augmented%20Generative%20AI.pdf)
 <img src="images/rag_presentation.png?raw=true"/>
@@ -20,6 +22,7 @@ layout: default
 
 Honors Thesis on Deepfakes (coming soon...)
 <img src="images/deepfakes.jpeg?raw=true">
+
 ---
 
 ### Useful docs
@@ -29,4 +32,3 @@ Honors Thesis on Deepfakes (coming soon...)
 ---
 
 ---
-
