@@ -9,3 +9,9 @@ Hosting via github pages (must have Github Pro)
 Code from https://github.com/evanca/quick-portfolio.
 
 Analytics with Google Analytics
+
+## How to run locally
+
+```bash
+bundle exec jekyll serve  
+```
