@@ -6,7 +6,7 @@ layout: default
 
 ---
 
-### -> [Chat with an AI about Jeremy!](/chatbot) <-
+### [Chat with an AI about Jeremy!](/chatbot)
 
 ---
 
