@@ -1,0 +1,25 @@
+---
+layout: default
+title: Quiz Results
+---
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Results</title>
+    <link rel="stylesheet" href="/assets/css/quiz.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Your Score: <span id="finalScore"></span></h1>
+        <p id="finalMessage"></p>
+        <button id="shareTwitter">Share on Twitter</button>
+        <button id="retryQuiz">Retry Quiz</button>
+    </div>
+    <script src="/assets/js/quiz.js" type="module">
+        import quizData from "./quiz_data.js"
+    </script>
+</body>
+</html>

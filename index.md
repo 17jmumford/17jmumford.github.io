@@ -10,6 +10,10 @@ layout: default
 
 ---
 
+### [Name that Language Quiz](/code_language_quiz)
+
+---
+
 [Honors Thesis on Deepfakes](https://scholarsarchive.byu.edu/studentpub_uht/346/)
 <img src="images/deepfakes.jpeg?raw=true">
 
