@@ -97,7 +97,7 @@ function restartQuiz() {
   currentQuestion = 0;
   score = 0;
   hintsUsed = 0;
-  window.location.href = "quiz.html";
+  window.location.href = "code_language_quiz";
 }
 
 // On the final score page
