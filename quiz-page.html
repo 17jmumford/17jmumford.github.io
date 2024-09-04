@@ -1,0 +1,31 @@
+---
+layout: default
+title: Quiz
+---
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Code Language Recognition Quiz</title>
+    <link rel="stylesheet" href="/assets/css/quiz.css">
+</head>
+<body>
+    <div class="container quiz-question">
+        <h2>Guess the Language</h2>
+        <pre id="codeSnippet" class="code-snippet"></pre>
+        <button id="hintButton">Hint</button>
+        <div class="choices">
+            <button class="choice"></button>
+            <button class="choice"></button>
+            <button class="choice"></button>
+            <button class="choice"></button>
+        </div>
+    </div>
+    <script src="/assets/js/quiz.js" type="module">
+        import quizData from "./quiz_data.js"
+    </script>
+</body>
+</html>
+
