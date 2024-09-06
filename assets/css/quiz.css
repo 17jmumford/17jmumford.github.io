@@ -1,0 +1,72 @@
+.container {
+    max-width: 600px;
+    margin: 50px auto;
+    padding: 20px;
+    background: white;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h1, h2 {
+    text-align: center;
+}
+
+p {
+    font-size: 18px;
+    text-align: center;
+}
+
+button {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    margin: 20px 0;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 18px;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+pre.code-snippet {
+    background-color: #eee;
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 5px;
+    margin: 20px 0;
+    overflow-x: auto;
+}
+
+.choices {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.choices .choice {
+    flex: 0 0 48%;
+    margin: 5px 0;
+    background-color: #3313b2;
+}
+
+.choices .choice:hover {
+    background-color: #514cdf;
+}
+
+.choices .choice.correct {
+  background-color: green;
+  color: white;
+}
+
+.choices .choice.incorrect {
+  background-color: red;
+  color: white;
+}
