@@ -44,6 +44,7 @@ document.addEventListener('DOMContentLoaded', () => {
                                 const artistLink = document.createElement('a');
                                 artistLink.href = eventData.spotify_data[index]?.artist.external_urls.spotify || '#';
                                 artistLink.textContent = artist;
+                                artistLink.style.textDecoration = 'underline';
                                 artistsDiv.appendChild(artistLink);
                             });
                             leftContent.appendChild(artistsDiv);
@@ -59,6 +60,7 @@ document.addEventListener('DOMContentLoaded', () => {
                             calendarButton.style.cursor = 'pointer';
                             calendarButton.style.width = '48px';
                             calendarButton.style.height = '48px';
+                            calendarButton.title = 'Add to Google Calendar'; // Add hover text
                             calendarButton.addEventListener('click', () => {
                                 addToGoogleCalendar(eventDate.textContent, eventTitle.textContent, eventData.artists);
                             });
@@ -81,14 +83,17 @@ document.addEventListener('DOMContentLoaded', () => {
     function formatDateString(dateString, day_of_month) {
         const year = dateString.substring(0, 4);
         const month = dateString.substring(4, 6);
-        return `${month}/${day_of_month}/${year}`;
+        const date = new Date(`${year}-${month}-${day_of_month}`);
+        const dayOfWeek = date.toLocaleString('en-US', { weekday: 'short' });
+        return `${dayOfWeek.substring(0, 3)} ${month}/${day_of_month}/${year}`;
     }
 
     // Function to add event to Google Calendar
     function addToGoogleCalendar(date, title, artists) {
-        const [month, day, year] = date.split('/');
-        const startDate = new Date(Date.UTC(year, month - 1, day, 2, 0, 0)); // Set to 8:00 PM MDT (2:00 AM UTC)
-        const endDate = new Date(startDate.getTime() + 3 * 60 * 60 * 1000); // Assuming 3-hour event duration
+        const [dayOfWeek, monthDayYear] = date.split(' ');
+        const [month, day, year] = monthDayYear.split('/');
+        const startDate = new Date(Date.UTC(parseInt(year), parseInt(month) - 1, parseInt(day) + 1, 1, 30, 0)); // Set to 7:30 PM MDT (1:30 AM UTC)
+        const endDate = new Date(startDate.getTime() + 4 * 60 * 60 * 1000); // Assuming 4-hour event duration
         const formattedStartDate = startDate.toISOString().replace(/-|:|\.\d\d\d/g, "");
         const formattedEndDate = endDate.toISOString().replace(/-|:|\.\d\d\d/g, "");
         const cal_title = title + " @ Velour: " + artists.join(", ");
