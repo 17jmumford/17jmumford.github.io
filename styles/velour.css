@@ -1,0 +1,88 @@
+/* styles.css */
+
+body {
+    font-family: 'Times New Roman', Times, serif;
+    background-color: #3e3a3a;
+    color: #ffffff;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.header {
+    text-align: center;
+    padding: 20px 0;
+    border-bottom: 2px solid #c69c6d;
+}
+
+.header h1 {
+    font-size: 3rem;
+    color: #c69c6d;
+    text-shadow: 2px 2px 2px #000000;
+}
+
+.event-list {
+    margin-top: 20px;
+}
+
+.event-item {
+    background-color: #5c5b5b;
+    padding: 15px;
+    margin-bottom: 10px;
+    border: 1px solid #c69c6d;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+.event-date {
+    font-size: 1.5rem;
+    color: #c69c6d;
+    margin-bottom: 5px;
+}
+
+.event-title {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.artists {
+    margin-bottom: 10px;
+}
+
+.artists a {
+    color: #ffffff;
+    text-decoration: none;
+    margin-right: 10px;
+}
+
+.artists a:hover {
+    color: #c69c6d;
+    text-decoration: underline;
+}
+
+.google-calendar-btn {
+    background-color: #c69c6d;
+    color: #000000;
+    padding: 5px 10px;
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s;
+}
+
+.google-calendar-btn:hover {
+    background-color: #ffffff;
+    color: #000000;
+}
+
+.event-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    /* Add any other styles you want for the event item */
+}
