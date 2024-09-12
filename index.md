@@ -14,6 +14,10 @@ layout: default
 
 ---
 
+### [Modern Velour](/modern_velour)
+
+---
+
 [Honors Thesis on Deepfakes](https://scholarsarchive.byu.edu/studentpub_uht/346/)
 <img src="images/deepfakes.jpeg?raw=true">
 
