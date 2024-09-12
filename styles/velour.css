@@ -2,7 +2,11 @@
 
 body {
     font-family: 'Times New Roman', Times, serif;
-    background-color: #902C3E;
+    background-image: url('../images/velour_background.jpg'); /* Replace with your image URL */
+    background-repeat: repeat;  /* Ensures the image repeats endlessly */
+    background-position: top left; /* Start at the top left corner */
+    background-size: auto; /* Use the image’s original size */
+    background-attachment: fixed; /* Keeps the image fixed as you scroll */
     color: #ffffff;
     margin: 0;
     padding: 0;
@@ -37,7 +41,7 @@ body {
 }
 
 .event-item {
-    background-color: #B7384F;
+    background-image: url('../images/velour_event_background.jpg');
     padding: 15px;
     margin-bottom: 10px;
     border: 1px solid #c69c6d;
@@ -55,6 +59,7 @@ body {
     font-size: 1.2rem;
     font-weight: bold;
     margin-bottom: 10px;
+    color: #000000;
 }
 
 .artists {
@@ -62,7 +67,7 @@ body {
 }
 
 .artists a {
-    color: #ffffff;
+    color: #000000;
     text-decoration: none;
     margin-right: 10px;
 }

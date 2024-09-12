@@ -7,14 +7,12 @@ document.addEventListener('DOMContentLoaded', () => {
     fetch('https://velour-scraper.s3.us-west-2.amazonaws.com/events.json')
         .then(response => response.json())
         .then(data => {
-            console.log(data);
             data.forEach(monthData => {
                 for (const date in monthData) {
                     const events = monthData[date];
                     events.forEach(event => {
                         for (const time in event) {
                             const eventData = event[time];
-                            console.log(time);
                             // Create event item
                             const eventItem = document.createElement('div');
                             eventItem.classList.add('event-item');
@@ -24,8 +22,6 @@ document.addEventListener('DOMContentLoaded', () => {
                             leftContent.classList.add('event-left-content');
 
                             // Add event date
-                            console.log(date);
-                            console.log(eventData);
                             const eventDate = document.createElement('div');
                             eventDate.classList.add('event-date');
                             eventDate.textContent = formatDateString(date, time);
@@ -62,7 +58,7 @@ document.addEventListener('DOMContentLoaded', () => {
                             calendarButton.style.height = '48px';
                             calendarButton.title = 'Add to Google Calendar'; // Add hover text
                             calendarButton.addEventListener('click', () => {
-                                addToGoogleCalendar(eventDate.textContent, eventTitle.textContent, eventData.artists);
+                                addToGoogleCalendar(date, time, eventTitle.textContent, eventData.artists);
                             });
 
                             // Append calendar button to event item
@@ -81,17 +77,22 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Helper function to format date strings
     function formatDateString(dateString, day_of_month) {
+        const month_number = dateString.substring(4, 6);
+        const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+        const month = monthNames[parseInt(month_number) - 1];
         const year = dateString.substring(0, 4);
-        const month = dateString.substring(4, 6);
         const date = new Date(`${year}-${month}-${day_of_month}`);
         const dayOfWeek = date.toLocaleString('en-US', { weekday: 'short' });
-        return `${dayOfWeek.substring(0, 3)} ${month}/${day_of_month}/${year}`;
+        return `${dayOfWeek.substring(0, 3)} ${month} ${day_of_month} 7:30 PM`;
     }
 
     // Function to add event to Google Calendar
-    function addToGoogleCalendar(date, title, artists) {
-        const [dayOfWeek, monthDayYear] = date.split(' ');
-        const [month, day, year] = monthDayYear.split('/');
+    function addToGoogleCalendar(date, day, title, artists) {
+        console.log("HELLO");
+        console.log(date);
+        const year = date.substring(0, 4);
+        const month = date.substring(4, 6);
+        console.log(month);
         const startDate = new Date(Date.UTC(parseInt(year), parseInt(month) - 1, parseInt(day) + 1, 1, 30, 0)); // Set to 7:30 PM MDT (1:30 AM UTC)
         const endDate = new Date(startDate.getTime() + 4 * 60 * 60 * 1000); // Assuming 4-hour event duration
         const formattedStartDate = startDate.toISOString().replace(/-|:|\.\d\d\d/g, "");
