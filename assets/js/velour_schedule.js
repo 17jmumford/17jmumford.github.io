@@ -1,5 +1,3 @@
-// script.js
-
 document.addEventListener('DOMContentLoaded', () => {
     const eventList = document.getElementById('event-list');
 
@@ -26,6 +24,18 @@ document.addEventListener('DOMContentLoaded', () => {
                             eventDate.classList.add('event-date');
                             eventDate.textContent = formatDateString(date, time);
                             leftContent.appendChild(eventDate);
+                            // Google Calendar button
+                            const calendarButton = document.createElement('img');
+                            calendarButton.src = '/images/google_cal.png';
+                            calendarButton.alt = 'Add to Google Calendar';
+                            calendarButton.classList.add('google-calendar-icon');
+                            calendarButton.title = 'Add to Google Calendar';
+                            calendarButton.addEventListener('click', () => {
+                                addToGoogleCalendar(date, time, eventTitle.textContent, eventData.artists);
+                            });
+
+                            // Append calendar button to event item
+                            leftContent.appendChild(calendarButton);
 
                             // Add event title (special notes)
                             const eventTitle = document.createElement('div');
@@ -33,36 +43,36 @@ document.addEventListener('DOMContentLoaded', () => {
                             eventTitle.textContent = eventData.special_notes;
                             leftContent.appendChild(eventTitle);
 
-                            // Add artist links
-                            const artistsDiv = document.createElement('div');
-                            artistsDiv.classList.add('artists');
-                            eventData.artists.forEach((artist, index) => {
-                                const artistLink = document.createElement('a');
-                                artistLink.href = eventData.spotify_data[index]?.artist.external_urls.spotify || '#';
-                                artistLink.textContent = artist;
-                                artistLink.style.textDecoration = 'underline';
-                                artistsDiv.appendChild(artistLink);
-                            });
-                            leftContent.appendChild(artistsDiv);
-
                             // Append left content to event item
                             eventItem.appendChild(leftContent);
 
-                            // Google Calendar button
-                            const calendarButton = document.createElement('img');
-                            calendarButton.src = '/images/google_cal.png';
-                            calendarButton.alt = 'Add to Google Calendar';
-                            calendarButton.classList.add('google-calendar-icon');
-                            calendarButton.style.cursor = 'pointer';
-                            calendarButton.style.width = '48px';
-                            calendarButton.style.height = '48px';
-                            calendarButton.title = 'Add to Google Calendar'; // Add hover text
-                            calendarButton.addEventListener('click', () => {
-                                addToGoogleCalendar(date, time, eventTitle.textContent, eventData.artists);
-                            });
+                            // Create a container for the artists
+                            const artistsContainer = document.createElement('div');
+                            artistsContainer.classList.add('artists-container');
 
-                            // Append calendar button to event item
-                            eventItem.appendChild(calendarButton);
+                            // Add artist links and images
+                            eventData.artists.forEach((artist, index) => {
+                                const artistDiv = document.createElement('div');
+                                artistDiv.classList.add('artist-item');
+
+                                const artistLink = document.createElement('a');
+                                artistLink.href = eventData.spotify_data[index]?.artist.external_urls.spotify || '#';
+                                artistLink.textContent = artist;
+                                artistLink.classList.add('artist-link');
+                                artistDiv.appendChild(artistLink);
+
+                                if (eventData.spotify_data[index]?.artist.images[0]) {
+                                    const artistImage = document.createElement('img');
+                                    artistImage.src = eventData.spotify_data[index].artist.images[0].url;
+                                    artistImage.alt = artist;
+                                    artistImage.classList.add('artist-image');
+                                    artistDiv.appendChild(artistImage);
+                                }
+
+                                artistsContainer.appendChild(artistDiv);
+                            });
+                            // Append artists container to event item
+                            eventItem.appendChild(artistsContainer);
 
                             // Append event item to event list
                             eventList.appendChild(eventItem);
