@@ -127,11 +127,11 @@ body {
 
 .footer-left p, .footer-right p {
     margin: 5px 0;
+    line-height: 1.5;
 }
 
 .footer-left a, .footer-right a {
     color: #ffffff;  /* Turquoise color for links */
-    text-decoration: underline;
 }
 
 .footer-left a:hover, .footer-right a:hover {
