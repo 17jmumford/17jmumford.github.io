@@ -59,6 +59,7 @@ document.addEventListener('DOMContentLoaded', () => {
                                 artistLink.href = eventData.spotify_data[index]?.artist.external_urls.spotify || '#';
                                 artistLink.textContent = artist;
                                 artistLink.classList.add('artist-link');
+                                artistLink.target = '_blank';
                                 artistDiv.appendChild(artistLink);
 
                                 if (eventData.spotify_data[index]?.artist.images[0]) {
@@ -66,7 +67,15 @@ document.addEventListener('DOMContentLoaded', () => {
                                     artistImage.src = eventData.spotify_data[index].artist.images[0].url;
                                     artistImage.alt = artist;
                                     artistImage.classList.add('artist-image');
-                                    artistDiv.appendChild(artistImage);
+                                    
+                                    // Create a wrapper link for the image
+                                    const imageLink = document.createElement('a');
+                                    imageLink.href = eventData.spotify_data[index]?.artist.external_urls.spotify || '#';
+                                    imageLink.target = '_blank';
+                                    
+                                    // Append the image to the link, then the link to the artist div
+                                    imageLink.appendChild(artistImage);
+                                    artistDiv.appendChild(imageLink);
                                 }
 
                                 artistsContainer.appendChild(artistDiv);
