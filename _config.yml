@@ -1,7 +1,7 @@
 title: Jeremy Mumford
 logo: "/images/logo.png?raw=true" 
-bio: AI Software Engineer | Optimist | Outdoor Enthusiast
-description: Jeremy is an experienced programmer specializing in software and data engineering with a focus on AI. His expertise lies in creating integrated data and software solutions. He began programming in high school and holds a degree in Computer Science with a concentration in Data Science, and minors in Statistics and Business. Jeremy has developed his skills in startups, creating essential business software. Currently, at Pattern, he is a key contributor to the AI team, utilizing generative AI to enhance company productivity and output significantly.
+bio: AI Engineer (someone who builds like a software engineer but thinks like a data scientist)
+description: Howdy! I'm Jeremy. I love building things. I studied a lot of statistics and machine learning in school, but realized I prefer software engineering after my first couple of jobs. After the ChatGPT moment, I realized I could combine my skills with my knowledge. Now, I lead the AI engineering team at Pattern, where we innovate and create new AI powered products while also building a core AI foundation that the rest of the company can build on. I'm good with software engineering and architecting, great with AI, decent with data, ok at DevOps, and terrible with frontend design.
 remote_theme: pages-themes/minimal@v0.2.0
 plugins:
 - jekyll-remote-theme
