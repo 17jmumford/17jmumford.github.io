@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LLM Context Window Visualizer</title>
+    <style>
+        :root {
+            --bg-color: #0f172a;
+            --card-bg: rgba(30, 41, 59, 0.6);
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --active-color: #38bdf8;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            background-image: radial-gradient(circle at top, #1e293b 0%, #0f172a 100%);
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 2rem 1rem;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            letter-spacing: -1px;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(to right, #fff, #94a3b8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        p.subtitle {
+            color: var(--text-muted);
+            max-width: 600px;
+            line-height: 1.5;
+        }
+
+        /* Presets */
+        .presets {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2.5rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .preset-btn {
+            background: rgba(30, 41, 59, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--text-main);
+            padding: 0.75rem 1.5rem;
+            border-radius: 99px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-width: 140px;
+        }
+
+        .preset-btn span.desc {
+            font-size: 0.7rem;
+            font-weight: 400;
+            color: var(--text-muted);
+            margin-top: 4px;
+        }
+
+        .preset-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .preset-btn.active {
+            border-color: var(--active-color);
+            background: rgba(255, 255, 255, 0.05);
+            box-shadow: 0 0 20px calc(var(--active-color) / 0.2), inset 0 0 10px calc(var(--active-color) / 0.1);
+        }
+
+        .preset-btn.active span.desc {
+            color: var(--text-main);
+        }
+
+        /* Central Visualizer */
+        .visualizer-container {
+            width: 100%;
+            max-width: 800px;
+            margin-bottom: 3rem;
+        }
+
+        .visualizer-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-bottom: 1rem;
+        }
+
+        .token-count {
+            font-size: 3rem;
+            font-weight: 800;
+            font-variant-numeric: tabular-nums;
+            color: var(--active-color);
+            transition: color 0.5s;
+            text-shadow: 0 0 20px calc(var(--active-color) / 0.4);
+        }
+
+        .token-label {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(50, 1fr);
+            gap: 3px;
+            background: var(--card-bg);
+            padding: 1.5rem;
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .dot {
+            width: 100%;
+            aspect-ratio: 1;
+            background: #1e293b;
+            border-radius: 2px;
+            transition: background 0.2s, box-shadow 0.2s;
+        }
+
+        .grid-legend {
+            text-align: right;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-top: 0.75rem;
+        }
+
+        /* Metrics Cards */
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1.5rem;
+            width: 100%;
+            max-width: 1000px;
+        }
+
+        .metric-card {
+            background: var(--card-bg);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 16px;
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .metric-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+            border-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .metric-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .metric-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--text-main);
+            margin-bottom: 0.25rem;
+            font-variant-numeric: tabular-nums;
+        }
+
+        .metric-label {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .metric-subtext {
+            color: var(--active-color);
+            font-size: 0.8rem;
+            margin-top: 0.5rem;
+            height: 1rem;
+            transition: color 0.5s;
+        }
+
+        @media (max-width: 600px) {
+            .grid { grid-template-columns: repeat(25, 1fr); }
+            .token-count { font-size: 2rem; }
+            .preset-btn { width: calc(50% - 0.5rem); min-width: auto; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Context Window Visualizer</h1>
+        <p class="subtitle">Experience the scale of data modern AI models can hold in a single thought.</p>
+    </header>
+
+    <div class="presets" id="presets">
+        <!-- Buttons generated by JS -->
+    </div>
+
+    <div class="visualizer-container">
+        <div class="visualizer-header">
+            <div>
+                <div class="token-label">Total Context Capacity</div>
+                <div class="token-count" id="token-display">0</div>
+            </div>
+        </div>
+        <div class="grid" id="dot-grid">
+            <!-- 1000 dots generated by JS -->
+        </div>
+        <div class="grid-legend">Each block represents 1,000 tokens</div>
+    </div>
+
+    <div class="metrics-grid" id="metrics">
+        <!-- Cards generated by JS -->
+    </div>
+
+    <script>
+        // Data Configuration
+        const presets = {
+            '4k': { tokens: 4096, label: '4,096', desc: 'GPT-3.5 Turbo Orig.', color: '#38bdf8' },
+            '32k': { tokens: 32768, label: '32k', desc: 'GPT-4 Experimental', color: '#a855f7' },
+            '200k': { tokens: 200000, label: '200k', desc: 'Standard Today', color: '#f59e0b' },
+            '1m': { tokens: 1000000, label: '1 Million', desc: 'Advanced Upper Limit', color: '#10b981' }
+        };
+
+        // Estimations: Units per token
+        const metricsData =[
+            { id: 'pages', icon: '📄', label: 'Pages of Text', tokensPerUnit: 400, calcSub: (val) => val >= 300 ? `(~ ${(val/300).toFixed(1)} Books)` : '' },
+            { id: 'code', icon: '💻', label: 'Lines of Code', tokensPerUnit: 10, calcSub: () => '' },
+            { id: 'files', icon: '📁', label: 'Source Files', tokensPerUnit: 2000, calcSub: () => '' },
+            { id: 'tweets', icon: '🐦', label: 'Tweets', tokensPerUnit: 50, calcSub: () => '' },
+            { id: 'essays', icon: '📝', label: '5-Para Essays', tokensPerUnit: 650, calcSub: () => '' },
+            { id: 'resumes', icon: '👔', label: 'Resumes', tokensPerUnit: 500, calcSub: () => '' }
+        ];
+
+        let currentTokens = 0;
+        let metricCurrentValues = { pages: 0, code: 0, files: 0, tweets: 0, essays: 0, resumes: 0 };
+        const totalDots = 1000;
+        const tokensPerDot = 1000;
+
+        // Initialize UI
+        function init() {
+            // Render Presets
+            const presetContainer = document.getElementById('presets');
+            Object.keys(presets).forEach(key => {
+                const btn = document.createElement('button');
+                btn.className = 'preset-btn';
+                btn.id = `btn-${key}`;
+                btn.innerHTML = `${presets[key].label}<span class="desc">${presets[key].desc}</span>`;
+                btn.onclick = () => setContext(key);
+                presetContainer.appendChild(btn);
+            });
+
+            // Render Grid
+            const gridContainer = document.getElementById('dot-grid');
+            for (let i = 0; i < totalDots; i++) {
+                const dot = document.createElement('div');
+                dot.className = 'dot';
+                gridContainer.appendChild(dot);
+            }
+
+            // Render Metrics
+            const metricsContainer = document.getElementById('metrics');
+            metricsData.forEach(m => {
+                const card = document.createElement('div');
+                card.className = 'metric-card';
+                card.innerHTML = `
+                    <div class="metric-icon">${m.icon}</div>
+                    <div class="metric-value" id="val-${m.id}">0</div>
+                    <div class="metric-label">${m.label}</div>
+                    <div class="metric-subtext" id="sub-${m.id}"></div>
+                `;
+                metricsContainer.appendChild(card);
+            });
+
+            // Start with 4k
+            setContext('4k');
+        }
+
+        // Animate Number Counting
+        function animateValue(id, start, end, duration, isInteger = true) {
+            const obj = document.getElementById(id);
+            let startTimestamp = null;
+            const step = (timestamp) => {
+                if (!startTimestamp) startTimestamp = timestamp;
+                const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+                
+                // Ease out cubic
+                const easeOut = 1 - Math.pow(1 - progress, 3);
+                let current = start + easeOut * (end - start);
+                
+                obj.innerText = (isInteger ? Math.round(current) : current).toLocaleString(undefined, {
+                    maximumFractionDigits: isInteger ? 0 : 1
+                });
+                
+                if (progress < 1) {
+                    window.requestAnimationFrame(step);
+                }
+            };
+            window.requestAnimationFrame(step);
+        }
+
+        // Main transition function
+        function setContext(presetKey) {
+            const target = presets[presetKey];
+            const targetTokens = target.tokens;
+
+            // Update Active Buttons & Theme
+            document.querySelectorAll('.preset-btn').forEach(btn => btn.classList.remove('active'));
+            document.getElementById(`btn-${presetKey}`).classList.add('active');
+            document.documentElement.style.setProperty('--active-color', target.color);
+
+            // Animate Total Tokens
+            animateValue('token-display', currentTokens, targetTokens, 1500, true);
+
+            // Animate Metrics Cards
+            metricsData.forEach(m => {
+                const targetValue = targetTokens / m.tokensPerUnit;
+                animateValue(`val-${m.id}`, metricCurrentValues[m.id], targetValue, 1500, true);
+                metricCurrentValues[m.id] = targetValue;
+
+                // Update subtext if applicable
+                const subEl = document.getElementById(`sub-${m.id}`);
+                subEl.innerText = m.calcSub(targetValue);
+            });
+
+            // Satisfying Sweep Animation for the Grid
+            const dots = document.querySelectorAll('.dot');
+            dots.forEach((dot, index) => {
+                const dotTokensStart = index * tokensPerDot;
+                
+                // Calculate delay based on dot position to create a sweeping effect
+                const delay = index * 0.8; // ms
+
+                setTimeout(() => {
+                    if (targetTokens > dotTokensStart) {
+                        let fillPercentage = ((targetTokens - dotTokensStart) / tokensPerDot) * 100;
+                        if (fillPercentage >= 100) {
+                            dot.style.background = target.color;
+                            dot.style.boxShadow = `0 0 6px ${target.color}`;
+                        } else {
+                            // Partial fill using a gradient
+                            dot.style.background = `linear-gradient(to right, ${target.color} ${fillPercentage}%, #1e293b ${fillPercentage}%)`;
+                            dot.style.boxShadow = 'none';
+                        }
+                    } else {
+                        dot.style.background = '#1e293b';
+                        dot.style.boxShadow = 'none';
+                    }
+                }, delay);
+            });
+
+            currentTokens = targetTokens;
+        }
+
+        // Boot up
+        window.onload = init;
+    </script>
+</body>
+</html>
