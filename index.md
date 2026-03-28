@@ -4,7 +4,7 @@ layout: default
 
 ### My Book!
 
-<img src="images/architected_intelligence.jpg?raw=true">
+<img src="images/architected_intelligence.png?raw=true">
 Available now! [Buy on Amazon](https://amzn.to/3PQHjBl)
 
 ---
