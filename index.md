@@ -202,6 +202,5 @@ layout: default
   <div class="contact-cta__links">
     <a href="https://www.linkedin.com/in/17jmumford/" class="btn btn-primary" target="_blank" rel="noopener noreferrer"><svg class="icon" aria-hidden="true"><use href="#icon-linkedin"></use></svg> LinkedIn</a>
     <a href="https://github.com/17jmumford" class="btn btn-secondary" target="_blank" rel="noopener noreferrer"><svg class="icon" aria-hidden="true"><use href="#icon-github"></use></svg> GitHub</a>
-    <a href="{{ '/pdf/Jeremy%20Mumford%20Resume%202023%20Oct%20copy.pdf' | relative_url }}" class="btn btn-secondary">Resume</a>
   </div>
 </section>
