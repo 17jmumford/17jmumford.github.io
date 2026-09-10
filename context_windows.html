@@ -3,7 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#0f172a">
     <title>LLM Context Window Visualizer</title>
+    <script>
+        (function () {
+            let theme = null;
+            try {
+                theme = localStorage.getItem('theme');
+            } catch (error) {
+                // Fall back to the visitor's system preference.
+            }
+            if (theme !== 'light' && theme !== 'dark') {
+                theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+            }
+            document.documentElement.dataset.theme = theme;
+            document.documentElement.style.colorScheme = theme;
+            document.querySelector('meta[name="theme-color"]').content =
+                theme === 'light' ? '#eef2f7' : '#0f172a';
+        }());
+    </script>
     <style>
         :root {
             --bg-color: #0f172a;
@@ -11,6 +29,23 @@
             --text-main: #f8fafc;
             --text-muted: #94a3b8;
             --active-color: #38bdf8;
+            --page-glow: #1e293b;
+            --control-bg: rgba(30, 41, 59, 0.8);
+            --control-hover: rgba(255, 255, 255, 0.1);
+            --border-color: rgba(255, 255, 255, 0.1);
+            --dot-bg: #1e293b;
+        }
+
+        html[data-theme="light"] {
+            --bg-color: #eef2f7;
+            --card-bg: rgba(255, 255, 255, 0.78);
+            --text-main: #172033;
+            --text-muted: #5b677a;
+            --page-glow: #ffffff;
+            --control-bg: rgba(255, 255, 255, 0.9);
+            --control-hover: rgba(36, 87, 214, 0.08);
+            --border-color: rgba(23, 32, 51, 0.14);
+            --dot-bg: #d8e0eb;
         }
 
         * {
@@ -22,7 +57,7 @@
 
         body {
             background-color: var(--bg-color);
-            background-image: radial-gradient(circle at top, #1e293b 0%, #0f172a 100%);
+            background-image: radial-gradient(circle at top, var(--page-glow) 0%, var(--bg-color) 100%);
             color: var(--text-main);
             min-height: 100vh;
             display: flex;
@@ -42,8 +77,61 @@
             letter-spacing: -1px;
             margin-bottom: 0.5rem;
             background: linear-gradient(to right, #fff, #94a3b8);
+            background-clip: text;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+        }
+
+        html[data-theme="light"] h1 {
+            background-image: linear-gradient(to right, #172033, #5b677a);
+        }
+
+        .theme-toggle {
+            position: fixed;
+            top: 1rem;
+            right: 1rem;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 42px;
+            height: 42px;
+            padding: 0;
+            border: 1px solid var(--border-color);
+            border-radius: 999px;
+            background: var(--control-bg);
+            color: var(--text-main);
+            appearance: none;
+            cursor: pointer;
+            backdrop-filter: blur(10px);
+            z-index: 1;
+        }
+
+        .theme-toggle .icon {
+            width: 1.15rem;
+            height: 1.15rem;
+            fill: currentColor;
+        }
+
+        .theme-toggle__sun {
+            display: none;
+        }
+
+        html[data-theme="dark"] .theme-toggle__moon {
+            display: none;
+        }
+
+        html[data-theme="dark"] .theme-toggle__sun {
+            display: block;
+        }
+
+        .theme-toggle:hover,
+        .theme-toggle:focus-visible {
+            background: var(--control-hover);
+        }
+
+        .theme-toggle:focus-visible {
+            outline: 2px solid var(--active-color);
+            outline-offset: 2px;
         }
 
         p.subtitle {
@@ -62,8 +150,8 @@
         }
 
         .preset-btn {
-            background: rgba(30, 41, 59, 0.8);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: var(--control-bg);
+            border: 1px solid var(--border-color);
             color: var(--text-main);
             padding: 0.75rem 1.5rem;
             border-radius: 99px;
@@ -85,7 +173,7 @@
         }
 
         .preset-btn:hover {
-            background: rgba(255, 255, 255, 0.1);
+            background: var(--control-hover);
             transform: translateY(-2px);
         }
 
@@ -135,14 +223,14 @@
             background: var(--card-bg);
             padding: 1.5rem;
             border-radius: 16px;
-            border: 1px solid rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border-color);
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
         }
 
         .dot {
             width: 100%;
             aspect-ratio: 1;
-            background: #1e293b;
+            background: var(--dot-bg);
             border-radius: 2px;
             transition: background 0.2s, box-shadow 0.2s;
         }
@@ -165,7 +253,7 @@
 
         .metric-card {
             background: var(--card-bg);
-            border: 1px solid rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border-color);
             border-radius: 16px;
             padding: 1.5rem;
             display: flex;
@@ -179,7 +267,12 @@
         .metric-card:hover {
             transform: translateY(-5px);
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
-            border-color: rgba(255, 255, 255, 0.1);
+            border-color: var(--active-color);
+        }
+
+        html[data-theme="light"] .grid,
+        html[data-theme="light"] .metric-card:hover {
+            box-shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
         }
 
         .metric-icon {
@@ -212,6 +305,13 @@
         }
 
         @media (max-width: 600px) {
+            .theme-toggle {
+                position: static;
+                align-self: flex-end;
+                width: 38px;
+                height: 38px;
+                margin-bottom: 1rem;
+            }
             .grid { grid-template-columns: repeat(25, 1fr); }
             .token-count { font-size: 2rem; }
             .preset-btn { width: calc(50% - 0.5rem); min-width: auto; }
@@ -219,6 +319,15 @@
     </style>
 </head>
 <body>
+
+    <button class="theme-toggle" type="button" aria-label="Switch to dark mode" title="Switch to dark mode">
+        <svg class="icon theme-toggle__moon" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M20.7 15.1A8 8 0 0 1 8.9 3.3 9 9 0 1 0 20.7 15.1ZM12 21a7 7 0 0 1-6.2-10.3 10 10 0 0 0 7.5 7.5A7 7 0 0 0 17 18a7 7 0 0 1-5 3Z"/>
+        </svg>
+        <svg class="icon theme-toggle__sun" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M11 2h2v3h-2V2Zm0 17h2v3h-2v-3ZM4.2 5.6 5.6 4.2l2.1 2.1-1.4 1.4-2.1-2.1Zm12.1 12.1 1.4-1.4 2.1 2.1-1.4 1.4-2.1-2.1ZM2 11h3v2H2v-2Zm17 0h3v2h-3v-2ZM4.2 18.4l2.1-2.1 1.4 1.4-2.1 2.1-1.4-1.4ZM16.3 6.3l2.1-2.1 1.4 1.4-2.1 2.1-1.4-1.4ZM12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10Zm0 2a3 3 0 1 0 0 6 3 3 0 0 0 0-6Z"/>
+        </svg>
+    </button>
 
     <header>
         <h1>Context Window Visualizer</h1>
@@ -246,6 +355,7 @@
         <!-- Cards generated by JS -->
     </div>
 
+    <script src="/assets/js/theme.js"></script>
     <script>
         // Data Configuration
         const presets = {
@@ -372,11 +482,11 @@
                             dot.style.boxShadow = `0 0 6px ${target.color}`;
                         } else {
                             // Partial fill using a gradient
-                            dot.style.background = `linear-gradient(to right, ${target.color} ${fillPercentage}%, #1e293b ${fillPercentage}%)`;
+                            dot.style.background = `linear-gradient(to right, ${target.color} ${fillPercentage}%, var(--dot-bg) ${fillPercentage}%)`;
                             dot.style.boxShadow = 'none';
                         }
                     } else {
-                        dot.style.background = '#1e293b';
+                        dot.style.background = 'var(--dot-bg)';
                         dot.style.boxShadow = 'none';
                     }
                 }, delay);

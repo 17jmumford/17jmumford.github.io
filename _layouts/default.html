@@ -13,6 +13,12 @@
       <symbol id="icon-home" viewBox="0 0 24 24">
          <path d="m12 3 9 8-1.3 1.5-1.2-1.1V21h-5v-6h-3v6h-5v-9.6l-1.2 1.1L3 11l9-8Zm4.5 6.6L12 5.7 7.5 9.6V19h1v-6h7v6h1V9.6Z"/>
       </symbol>
+      <symbol id="icon-sun" viewBox="0 0 24 24">
+         <path d="M11 2h2v3h-2V2Zm0 17h2v3h-2v-3ZM4.2 5.6 5.6 4.2l2.1 2.1-1.4 1.4-2.1-2.1Zm12.1 12.1 1.4-1.4 2.1 2.1-1.4 1.4-2.1-2.1ZM2 11h3v2H2v-2Zm17 0h3v2h-3v-2ZM4.2 18.4l2.1-2.1 1.4 1.4-2.1 2.1-1.4-1.4ZM16.3 6.3l2.1-2.1 1.4 1.4-2.1 2.1-1.4-1.4ZM12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10Zm0 2a3 3 0 1 0 0 6 3 3 0 0 0 0-6Z"/>
+      </symbol>
+      <symbol id="icon-moon" viewBox="0 0 24 24">
+         <path d="M20.7 15.1A8 8 0 0 1 8.9 3.3 9 9 0 1 0 20.7 15.1ZM12 21a7 7 0 0 1-6.2-10.3 10 10 0 0 0 7.5 7.5A7 7 0 0 0 17 18a7 7 0 0 1-5 3Z"/>
+      </symbol>
    </svg>
    <div class="wrapper site-shell">
       <header class="site-header">
@@ -23,14 +29,16 @@
          </a>
          <nav class="site-nav" aria-label="Primary">
             <a href="{{ "/mentions/" | relative_url }}">Recognition</a>
-            <a href="https://www.linkedin.com/in/17jmumford/" target="_blank" rel="noopener noreferrer">
+            <a class="site-nav__icon" href="https://www.linkedin.com/in/17jmumford/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" title="LinkedIn">
                <svg class="icon" aria-hidden="true"><use href="#icon-linkedin"></use></svg>
-               <span>LinkedIn</span>
             </a>
-            <a href="https://github.com/17jmumford" target="_blank" rel="noopener noreferrer">
+            <a class="site-nav__icon" href="https://github.com/17jmumford" target="_blank" rel="noopener noreferrer" aria-label="GitHub" title="GitHub">
                <svg class="icon" aria-hidden="true"><use href="#icon-github"></use></svg>
-               <span>GitHub</span>
             </a>
+            <button class="theme-toggle" type="button" aria-label="Switch to dark mode" title="Switch to dark mode">
+               <svg class="icon theme-toggle__moon" aria-hidden="true"><use href="#icon-moon"></use></svg>
+               <svg class="icon theme-toggle__sun" aria-hidden="true"><use href="#icon-sun"></use></svg>
+            </button>
          </nav>
       </header>
       <main class="site-main">
@@ -41,5 +49,6 @@
       </footer>
    </div>
    <script src="{{ "/assets/js/scale.fix.js" | relative_url }}"></script>
+   <script src="{{ "/assets/js/theme.js" | relative_url }}"></script>
 </body>
 </html>

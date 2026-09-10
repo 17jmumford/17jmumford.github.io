@@ -4,7 +4,27 @@
    <meta charset="UTF-8">
    <meta http-equiv="X-UA-Compatible" content="IE=edge">
    <meta name="viewport" content="width=device-width, initial-scale=1">
-   <meta name="theme-color" content="#0f172a">
+   <meta name="theme-color" content="#f6f7f9">
+   <script>
+      (function () {
+         var theme = null;
+
+         try {
+            theme = localStorage.getItem('theme');
+         } catch (error) {
+            // Continue with the visitor's system preference when storage is unavailable.
+         }
+
+         if (theme !== 'light' && theme !== 'dark') {
+            theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+         }
+
+         document.documentElement.dataset.theme = theme;
+         document.documentElement.style.colorScheme = theme;
+         document.querySelector('meta[name="theme-color"]').content =
+            theme === 'dark' ? '#0b1120' : '#f6f7f9';
+      })();
+   </script>
    <link rel="apple-touch-icon" sizes="180x180" href="{{ '/favicon_io/apple-touch-icon.png' | relative_url }}">
    <link rel="icon" type="image/png" sizes="32x32" href="{{ '/favicon_io/favicon-32x32.png' | relative_url }}">
    <link rel="icon" type="image/png" sizes="16x16" href="{{ '/favicon_io/favicon-16x16.png' | relative_url }}">

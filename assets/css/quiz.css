@@ -2,8 +2,9 @@
     max-width: 600px;
     margin: 50px auto;
     padding: 20px;
-    background: white;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    background: var(--color-surface);
+    color: var(--color-text);
+    box-shadow: var(--shadow-md);
 }
 
 h1, h2 {
@@ -32,12 +33,14 @@ button:hover {
     background-color: #0056b3;
 }
 button:disabled {
-    background-color: #ccc;
+    background-color: var(--color-hover);
+    color: var(--color-muted);
     cursor: not-allowed;
 }
 
 pre.code-snippet {
-    background-color: #eee;
+    background-color: var(--color-visual);
+    color: var(--color-text);
     padding: 10px;
     font-size: 16px;
     border-radius: 5px;

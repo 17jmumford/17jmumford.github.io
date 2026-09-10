@@ -7,11 +7,16 @@
 /* Styles for the input field */
 #chat-input {
     flex-grow: 1; /* Input takes up remaining space */
-    padding: 5px;
-    border: 1px solid #ddd;
     padding: 10px;
+    border: 1px solid var(--color-border);
+    background: var(--color-surface);
+    color: var(--color-text);
     border-radius: 15px 0 0 15px;
     margin-right: -1px; /* Align border with button */
+}
+
+#chat-input::placeholder {
+    color: var(--color-muted);
 }
 
 /* Styles for the send button */
@@ -40,7 +45,7 @@
     width: 8px;
     height: 8px;
     border-radius: 50%;
-    background-color: #000000;
+    background-color: var(--color-text);
     margin: 0 3px;
     animation: pulse 1.4s infinite ease-in-out both;
 }
